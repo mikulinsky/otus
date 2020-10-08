@@ -8,19 +8,12 @@ plugins {
     id 'java'
 }
 
-group 'otus'
-version '1.0-SNAPSHOT'
+allprojects {
+    group 'otus'
+    version '1.0-SNAPSHOT'
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    compile 'otus.hw01.gradle:HelloOtus'
-}
-
-jar {
-    manifest {
-        attributes 'Main-Class': 'otus.hw01.gradle.HelloOtus'
+    repositories {
+        mavenCentral()
     }
+
 }

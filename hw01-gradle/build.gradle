@@ -5,8 +5,6 @@ plugins {
 group 'otus.hw01.gradle'
 version '1.0-SNAPSHOT'
 
-mainClassName = 'otus.hw01.gradle.HelloOtus'
-
 repositories {
     mavenCentral()
 }
