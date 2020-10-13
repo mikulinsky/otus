@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+}
+
+group 'otus.hw01.gradle'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.google.guava:guava:28.0-jre'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'otus.hw01.gradle.HelloOtus'
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
