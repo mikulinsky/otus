@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        DIYArrayList<Integer> arrayList1 = new DIYArrayList<>();
+        DIYArrayList<Integer> arrayList1 = new DIYArrayList<>(50);
         DIYArrayList<Integer> arrayList2 = new DIYArrayList<>(50);
 
         Integer[] testCollection = new Integer[50];
@@ -15,6 +15,8 @@ public class Main {
             testCollection[i] = new Random().nextInt();
 
         Collections.addAll(arrayList1, testCollection);
+        System.out.println("arrayList.size = " + arrayList1.size());
+        System.out.println("arrayList2.size = " + arrayList2.size());
         Collections.copy(arrayList2, arrayList1);
         Collections.sort(arrayList2);
 

@@ -4,20 +4,23 @@ import java.util.*;
 
 public class DIYArrayList<E> implements List<E> {
 
+    private static final int DEFAULT_CAPACITY = 10;
+    private static final Object[] EMPTY_ELEMENTDATA = {};
+    private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
+    private static final int MAX_ARRAY_LENGTH = Integer.MAX_VALUE - 8;
+
     private int size;
     private Object[] data;
-    private boolean isFixedSize = false;
 
     public DIYArrayList() {
-        this.size = 0;
-        this.data = new Object[0];
+        this.data = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;
     }
 
     public DIYArrayList(int size) {
-        if (size >= 0) {
-            this.size = 0;
+        if (size > 0) {
             this.data = new Object[size];
-            this.isFixedSize = true;
+        } else if (size == 0) {
+            this.data = EMPTY_ELEMENTDATA;
         } else {
             throw new IllegalArgumentException("init size < 0");
         }
@@ -36,9 +39,7 @@ public class DIYArrayList<E> implements List<E> {
     @Override
     public boolean add(E e) {
         if (this.size == this.data.length) {
-            if (this.isFixedSize)
-                throw new OutOfMemoryError();
-            this.data = this.updateCapacity(this.size + 1);
+            this.data = this.grow();
         }
         this.data[this.size] = e;
         this.size += 1;
@@ -77,13 +78,45 @@ public class DIYArrayList<E> implements List<E> {
         return new CustomIterator();
     }
 
-    private Object[] updateCapacity(long newCapacity) {
-        if (newCapacity < 0)
+    private Object[] grow(int minCapacity) {
+        if (minCapacity < 0)
             throw new OutOfMemoryError("updateCapacity to size < 0");
-        if (newCapacity > (long)Integer.MAX_VALUE)
-            throw new OutOfMemoryError("updateCapacity to size > Integer.MAX_VALUE");
 
-        return Arrays.copyOf(this.data, (int)newCapacity);
+        int oldCapacity = this.data.length;
+        if (oldCapacity > 0 || this.data != DEFAULTCAPACITY_EMPTY_ELEMENTDATA) {
+            int newCapacity = this.newLength(oldCapacity,
+                    minCapacity - oldCapacity, /* minimum growth */
+                    oldCapacity >> 1           /* preferred growth */);
+            return this.data = Arrays.copyOf(this.data, newCapacity);
+        } else {
+            return this.data = new Object[Math.max(DEFAULT_CAPACITY, minCapacity)];
+        }
+    }
+
+    private Object[] grow() {
+        return grow(size + 1);
+    }
+
+    private static int newLength(int oldLength, int minGrowth, int prefGrowth) {
+        assert oldLength >= 0;
+        assert minGrowth > 0;
+
+        int newLength = Math.max(minGrowth, prefGrowth) + oldLength;
+        if (newLength - MAX_ARRAY_LENGTH <= 0) {
+            return newLength;
+        }
+        return hugeLength(oldLength, minGrowth);
+    }
+
+    private static int hugeLength(int oldLength, int minGrowth) {
+        int minLength = oldLength + minGrowth;
+        if (minLength < 0) { // overflow
+            throw new OutOfMemoryError("Required array length too large");
+        }
+        if (minLength <= MAX_ARRAY_LENGTH) {
+            return MAX_ARRAY_LENGTH;
+        }
+        return Integer.MAX_VALUE;
     }
 
     public class CustomIterator implements ListIterator<E> {
