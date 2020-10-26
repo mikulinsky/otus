@@ -8,7 +8,11 @@ public class Main {
         TestLauncher testLauncher = new TestLauncher();
         TestResults results;
 
-        results = testLauncher.launch("otus.hw03.annotations.tests.DIYArrayListTest");
+        try {
+            results = testLauncher.launch("otus.hw03.annotations.tests.DIYArrayListTest");
+        } catch (Exception e) {
+            results = new TestResults(0, 0);
+        }
 
         System.out.println("Test passed: " + results.isPassed());
         System.out.println("Tests: " + results.getAll() +
