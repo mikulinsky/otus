@@ -10,6 +10,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class TestLauncher {
@@ -22,9 +23,9 @@ public class TestLauncher {
         Constructor<?> constructor = clazz.getConstructor();
         Method[] methods = clazz.getMethods();
 
-        ArrayList<Method> beforeMethods = this.getMethodsWithAnnotation(methods, Before.class);
-        ArrayList<Method> testMethods = this.getMethodsWithAnnotation(methods, Test.class);
-        ArrayList<Method> afterMethods = this.getMethodsWithAnnotation(methods, After.class);
+        List<Method> beforeMethods = this.getMethodsWithAnnotation(methods, Before.class);
+        List<Method> testMethods = this.getMethodsWithAnnotation(methods, Test.class);
+        List<Method> afterMethods = this.getMethodsWithAnnotation(methods, After.class);
         int failCount = 0;
 
         for (Method method : testMethods) {
@@ -38,17 +39,19 @@ public class TestLauncher {
                 logger.warning(e.getCause().toString());
                 failCount++;
             }
-            try {
-                this.runMethods(afterMethods, instance);
-            } catch (Exception e) {
-                logger.warning(e.getCause().toString());
+            for (Method afterMethod : afterMethods) {
+                try {
+                    afterMethod.invoke(instance);
+                } catch (Exception e) {
+                    logger.warning(e.getCause().toString());
+                }
             }
         }
 
         return new TestResults(testMethods.size(), failCount);
     }
 
-    private ArrayList<Method> getMethodsWithAnnotation(Method[] methods, Class<? extends Annotation> clazz) {
+    private List<Method> getMethodsWithAnnotation(Method[] methods, Class<? extends Annotation> clazz) {
         ArrayList<Method> filteredMethods = new ArrayList<>();
 
         for(Method method : methods) {
@@ -59,7 +62,7 @@ public class TestLauncher {
         return filteredMethods;
     }
 
-    private void runMethods(ArrayList<Method> methods, Object instance)
+    private void runMethods(List<Method> methods, Object instance)
             throws InvocationTargetException, IllegalAccessException {
 
         for (Method method : methods)
