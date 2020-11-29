@@ -9,14 +9,12 @@ class Benchmark implements BenchmarkMBean {
     }
 
     void run() throws InterruptedException {
-        Object[] array = new Object[loopCounter*2];
         for (int idx = 0; idx < loopCounter; idx++) {
             int local = size;
             Object[] innerArray = new Object[local];
             for (int i = 0; i < local; i++) {
-                innerArray[i] = new String(new char[0]);
+                innerArray[i] = new String(new char[57]);
             }
-            array[idx] = new String(new byte[0]);
             Thread.sleep(5);
         }
     }

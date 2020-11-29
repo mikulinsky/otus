@@ -2,49 +2,50 @@
 
 #### -XX:+UseSerialGC
 
-Время работы: 10 мин.
+Время работы: 18 сек.
 
-Количество сборок: 6675
+Количество сборок: 22
 
 Время на сборки:\
-    Name:Copy - 88-90мс\
-    Name:MarkSweepCompact - 145-150мс
-    
-Максимальное использование памяти: 194мб
+    Name:Copy - 89-104мс\
+    Name:MarkSweepCompact - 315-441мс
 
 #### -XX:+UseParallelGC
 
-Время работы: 10 мин.
+Время работы: 17 сек.
 
-Количество сборок: 5491
+Количество сборок: 14
 
 Время на сборки:\
-    Name:PS Scavenge - 66-140мс\
-    Name:PS MarkSweep - 17-89мс
-    
-Максимальное использование памяти: 192мб
+    Name:PS Scavenge - 48-53мс\
+    Name:PS MarkSweep - 335-382мс
 
 #### -XX:+UseConcMarkSweepGC
 
-error: Could not create the Java Virtual Machine.
+error: 
+Unrecognized VM option 'UseConcMarkSweepGC'\
+Error: Could not create the Java Virtual Machine.\
+Error: A fatal exception has occurred. Program will exit.\
+
+Could not create the Java Virtual Machine.
 
 #### -XX:+UseG1GC 
 
-Время работы: 10 мин.
+Время работы: 9 сек.
 
-Количество сборок: 11010
+Количество сборок: 40
 
 Время на сборки:\
-    Name:G1 Young Generation - 11-58мс\
-    Name:G1 Old Generation - 60-75мс
-    
-Максимальное использование памяти: 255.99мб
+    Name:G1 Young Generation - 8-38мс\
+    Name:G1 Old Generation - 270-299мс
 
 #### -XX:+UnlockExperimentalVMOptions -XX:+UseZGC
 
-error: Could not create the Java Virtual Machine.
+error: Failed to lookup symbol: VirtualAlloc2\
+       Error occurred during initialization of VM\
+       ZGC requires Windows version 1803 or later
 
 ### Итог:
 
-Из протестированных вариантов меньше всего памяти задействовано при ParallelGC. Также при нем наблюдается самое минимальное  вмешательство в процесс выполнения приложения.
+Из протестированных вариантов дольше всего проработал SerialGC. При ParallelGC наблюдается самое минимальное  вмешательство в процесс выполнения приложения.
  Однако, если необходимо чтобы сборки происходили незаметно для пользователя, то лучше выбрать G1GC, так как он имеет минимальное вермя вмешательства в работу приложения.
