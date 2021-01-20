@@ -1,5 +1,6 @@
 package otus.hw06.atm;
 
+import otus.hw06.atm.exceptions.ATMRuntimeException;
 import otus.hw06.atm.models.Operation;
 import otus.hw06.atm.util.ConsoleHelper;
 
@@ -10,6 +11,8 @@ public class ATM {
         while (true){
             try {
                 CommandExecutor.execute(operation, user);
+            } catch (ATMRuntimeException atmRuntimeException) {
+                ConsoleHelper.write("Error: Во время обработки операции произошла внутренняя ошибка.");
             } catch (Exception e) {
                 e.printStackTrace();
                 ConsoleHelper.write("Error: Во время обработки операции произошла ошибка.");

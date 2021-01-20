@@ -18,7 +18,7 @@ public class GetCommand implements Command{
         try {
             Integer sum = Integer.parseInt(ConsoleHelper.read());
             HashMap<Money, Integer> banknotes = atmBalance.getBanknotesBySum(sum);
-            user.getMoney(sum);
+            user.cashingMoney(sum);
             for (Map.Entry<Money, Integer> entity: banknotes.entrySet()){
                 if (entity.getValue() == 0)
                     continue;

@@ -1,4 +1,4 @@
 package otus.hw06.atm.exceptions;
 
-public class BalanceException extends RuntimeException{
+public class BalanceException extends ATMRuntimeException{
 }

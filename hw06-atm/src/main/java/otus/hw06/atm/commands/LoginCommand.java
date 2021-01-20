@@ -11,14 +11,14 @@ public class LoginCommand implements Command {
     public void execute(User user, ATMBalance atmBalance) throws IOException {
         ConsoleHelper.write("Введите номер карты (в формате: 0000 0000 0000 0000):");
         String cardNumber = ConsoleHelper.read();
-        if (!user.ValidateCardNumber(cardNumber)) {
+        if (!user.validateCardNumber(cardNumber)) {
             ConsoleHelper.write("Введен неверный номер карты. Попробуйте: 0000 0000 0000 0000");
             this.execute(user, atmBalance);
             return;
         }
         ConsoleHelper.write("Введите пин код (0000):");
         String pin = ConsoleHelper.read();
-        if (!user.ValidatePin(pin)) {
+        if (!user.validatePin(pin)) {
             ConsoleHelper.write("Введен неверный пин. Попробуйте: 0000");
             this.execute(user, atmBalance);
         }

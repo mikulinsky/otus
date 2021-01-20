@@ -1,23 +1,22 @@
 package otus.hw06.atm.models;
 
 import otus.hw06.atm.exceptions.BalanceException;
-import otus.hw06.atm.util.ConsoleHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class ATMBalance {
     private final HashMap<Money, Integer> balance = new HashMap<>();
-    private static final ArrayList<Integer> moneys = new ArrayList<>();
+    private static final List<Integer> moneys = new ArrayList<>();
 
     {
         for (Money money : Money.values()) {
             this.balance.put(money, 10);
             moneys.add(money.toInt());
         }
-        Collections.sort(moneys);
-        Collections.reverse(moneys);
+        moneys.sort(Collections.reverseOrder());
     }
 
     public void getBanknote(Money money) {

@@ -2,7 +2,6 @@ package otus.hw06.atm;
 
 import otus.hw06.atm.exceptions.BalanceException;
 import otus.hw06.atm.models.Money;
-import otus.hw06.atm.util.ConsoleHelper;
 
 public class User {
     private Integer balance;
@@ -17,21 +16,21 @@ public class User {
         return balance;
     }
 
-    public Integer pushMoney(Money money) {
-        return balance += money.toInt();
+    public void pushMoney(Money money) {
+        balance += money.toInt();
     }
 
-    public Integer getMoney(Integer money) {
+    public void cashingMoney(Integer money) {
         if (balance < money)
             throw new BalanceException();
-        return balance -= money;
+        balance -= money;
     }
 
-    public Boolean ValidateCardNumber(String cardNumber) {
+    public Boolean validateCardNumber(String cardNumber) {
         return User.cardNumber.equals(cardNumber);
     }
 
-    public Boolean ValidatePin(String pin) {
+    public Boolean validatePin(String pin) {
         return User.pin.equals(pin);
     }
 }
