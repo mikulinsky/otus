@@ -1,20 +1,20 @@
 package otus.hw07.todo.model;
 
 public class Message {
-    private final long id;
-    private final String field1;
-    private final String field2;
-    private final String field3;
-    private final String field4;
-    private final String field5;
-    private final String field6;
-    private final String field7;
-    private final String field8;
-    private final String field9;
-    private final String field10;
-    private final String field11;
-    private final String field12;
-    private final ObjectForMessage field13;
+    private long id;
+    private String field1;
+    private String field2;
+    private String field3;
+    private String field4;
+    private String field5;
+    private String field6;
+    private String field7;
+    private String field8;
+    private String field9;
+    private String field10;
+    private String field11;
+    private String field12;
+    private ObjectForMessage field13;
 
     //todo: 1(done). Добавить поля field11 - field13 (для field13 используйте класс ObjectForMessage)
 
@@ -89,6 +89,25 @@ public class Message {
 
     public ObjectForMessage getField13() {
         return field13;
+    }
+
+    public Message copy() {
+        return new Message(
+                id=this.getId(),
+                field1=this.getField1(),
+                field2=this.getField2(),
+                field3=this.getField3(),
+                field4=this.getField4(),
+                field5=this.getField5(),
+                field6=this.getField6(),
+                field7=this.getField7(),
+                field8=this.getField8(),
+                field9=this.getField9(),
+                field10=this.getField10(),
+                field11=this.getField11(),
+                field12=this.getField12(),
+                field13=this.getField13()
+        );
     }
 
     @Override
