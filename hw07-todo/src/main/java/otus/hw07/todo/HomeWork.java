@@ -10,6 +10,8 @@ import otus.hw07.todo.processor.ProcessorUpperField10;
 import otus.hw07.todo.processor.homework.ErrorProcessor;
 import otus.hw07.todo.processor.homework.SubProcessor;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class HomeWork {
@@ -30,7 +32,7 @@ public class HomeWork {
          */
 
         var processors = List.of(new SubProcessor(),
-                new ErrorProcessor());
+                new ErrorProcessor(LocalDateTime::now));
 
         var complexProcessor = new ComplexProcessor(processors, (ex) -> {System.out.println(ex.toString());});
         var historyListener = new HistoryListener();

@@ -3,12 +3,15 @@ package otus.hw07.todo.handler;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import otus.hw07.todo.DateTimeProvider;
 import otus.hw07.todo.model.Message;
 import otus.hw07.todo.listener.Listener;
 import otus.hw07.todo.processor.Processor;
 import otus.hw07.todo.processor.homework.ErrorProcessor;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +32,7 @@ class ComplexProcessorTest {
     void errorProcessorTest() {
         var message = new Message.Builder(1L).field11("field11").field12("field12").build();
 
-        var processor = new ErrorProcessor();
+        var processor = new ErrorProcessor(LocalDateTime::now);
         when(processor.process(eq(message))).thenReturn(message);
 
         List<Processor> processors = List.of(processor);
