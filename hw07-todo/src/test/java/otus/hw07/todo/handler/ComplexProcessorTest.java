@@ -32,20 +32,13 @@ class ComplexProcessorTest {
     void errorProcessorTest() {
         var message = new Message.Builder(1L).field11("field11").field12("field12").build();
 
-        var processor = new ErrorProcessor(LocalDateTime::now);
+        var processor = new ErrorProcessor(() -> LocalDateTime.of(2021, 1, 20,12, 0, 1));
         when(processor.process(eq(message))).thenReturn(message);
 
         List<Processor> processors = List.of(processor);
 
-        var complexProcessor = new ComplexProcessor(processors, (ex) -> {
-        });
+        var complexProcessor = new ComplexProcessor(processors, (ex) -> {});
 
-        while (Instant.now().getEpochSecond() % 2 == 0) {
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException ignored) {
-            }
-        }
         var result = complexProcessor.handle(message);
 
         assertThat(result).isEqualTo(message);
