@@ -1,5 +1,8 @@
 package otus.hw07.todo.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Message {
     private long id;
     private String field1;
@@ -32,7 +35,8 @@ public class Message {
         this.field10 = field10;
         this.field11 = field11;
         this.field12 = field12;
-        this.field13 = field13;
+        this.field13 = new ObjectForMessage();
+        this.field13.setData(new ArrayList<>(field13.getData()));
     }
 
     public long getId() {
