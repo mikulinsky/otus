@@ -1,7 +1,6 @@
 package otus.hw07.todo.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Message {
     private long id;
@@ -95,22 +94,22 @@ public class Message {
         return field13;
     }
 
-    public Message copy() {
+    public Message clone() {
         return new Message(
-                id=this.getId(),
-                field1=this.getField1(),
-                field2=this.getField2(),
-                field3=this.getField3(),
-                field4=this.getField4(),
-                field5=this.getField5(),
-                field6=this.getField6(),
-                field7=this.getField7(),
-                field8=this.getField8(),
-                field9=this.getField9(),
-                field10=this.getField10(),
-                field11=this.getField11(),
-                field12=this.getField12(),
-                field13=this.getField13()
+                id = this.getId(),
+                field1 = this.getField1(),
+                field2 = this.getField2(),
+                field3 = this.getField3(),
+                field4 = this.getField4(),
+                field5 = this.getField5(),
+                field6 = this.getField6(),
+                field7 = this.getField7(),
+                field8 = this.getField8(),
+                field9 = this.getField9(),
+                field10 = this.getField10(),
+                field11 = this.getField11(),
+                field12 = this.getField12(),
+                field13 = this.getField13()
         );
     }
 

@@ -13,7 +13,7 @@ public class HistoryListener implements Listener {
 
     @Override
     public void onUpdated(Message oldMsg, Message newMsg) {
-        history.put(nextID, new AbstractMap.SimpleEntry<>(oldMsg.copy(), newMsg.copy()));
+        history.put(nextID, new AbstractMap.SimpleEntry<>(oldMsg.clone(), newMsg.clone()));
         nextID++;
     }
 
