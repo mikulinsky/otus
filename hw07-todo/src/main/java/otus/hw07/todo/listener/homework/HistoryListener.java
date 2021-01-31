@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class HistoryListener implements Listener {
 
     private final HashMap<Long, AbstractMap.SimpleEntry<Message, Message>> history = new HashMap<>();
-    private Long nextID = Integer.toUnsignedLong(0);
+    private Long nextID = 0L;
 
     @Override
     public void onUpdated(Message oldMsg, Message newMsg) {
