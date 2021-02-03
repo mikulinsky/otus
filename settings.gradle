@@ -9,4 +9,4 @@
 
 rootProject.name = 'otus'
 
-include('hw01-gradle', 'hw02-generics', 'hw03-annotations', 'hw04-gc', 'hw05-autoLog', 'hw07-todo')
+include('hw01-gradle', 'hw02-generics', 'hw03-annotations', 'hw04-gc', 'hw05-autoLog', 'hw06-atm', 'hw07-todo')
