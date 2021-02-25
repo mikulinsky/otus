@@ -1,29 +1,43 @@
 package otus.hw09.jdbc.models;
 
+import com.google.gson.Gson;
 import otus.hw09.jdbc.annotation.Id;
-import otus.hw09.jdbc.db.DBExecutor;
 
-import java.math.BigInteger;
-import java.sql.SQLException;
+import java.util.Random;
 
 public class Account {
     @Id
-    private BigInteger accountId;
+    private long id;
     private String no;
     private String type;
-    private Float rest;
+    private Double rest;
 
-    public Account(String no, String type, Float rest) {
+    public Account() {
+        this.id = new Random().nextLong();
+        this.no = "no";
+        this.type = "type";
+        this.rest = Double.MAX_VALUE;
+    }
+
+    public Account(String no, String type, Double rest) {
+        this.id = new Random().nextLong();
         this.no = no;
         this.type = type;
         this.rest = rest;
     }
 
-    public Float getRest() {
+    public Account(long id, String no, String type, Double rest) {
+        this.id = id;
+        this.no = no;
+        this.type = type;
+        this.rest = rest;
+    }
+
+    public Double getRest() {
         return rest;
     }
 
-    public void setRest(Float rest) {
+    public void setRest(Double rest) {
         this.rest = rest;
     }
 
@@ -43,22 +57,13 @@ public class Account {
         this.type = type;
     }
 
-    public BigInteger getAccountId() {
-        return accountId;
+    public long getId() {
+        return id;
     }
 
-    public void save() throws SQLException, ClassNotFoundException {
-        DBExecutor<Account> dbExecutor = new DBExecutor<>(Account.class);
-        dbExecutor.insert(this);
-    }
-
-    public static Account findById(Integer id) throws SQLException, ClassNotFoundException {
-        DBExecutor<Account> dbExecutor = new DBExecutor<>(Account.class);
-        return dbExecutor.select(id);
-    }
-
-    public static void createTable() throws SQLException, ClassNotFoundException {
-        DBExecutor<Account> dbExecutor = new DBExecutor<>(Account.class);
-        dbExecutor.createTable();
+    @Override
+    public String toString() {
+        var gson = new Gson();
+        return gson.toJson(this);
     }
 }

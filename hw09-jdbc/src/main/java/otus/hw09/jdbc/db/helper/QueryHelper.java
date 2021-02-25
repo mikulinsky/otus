@@ -10,10 +10,10 @@ public class QueryHelper<T> {
 
     public static <T> String getInsertQuery(MetaData<T> classMetaData) {
         return "INSERT INTO " + classMetaData.getName() + "(" +
-                classMetaData.getFieldsWithoutId().stream()
+                classMetaData.getFields().stream()
                         .map(Field::getName).collect(Collectors.joining(", ")) +
                 ") VALUES (" + String.join(", ", Collections.nCopies(
-                        classMetaData.getFieldsWithoutId().size(), "?"))
+                        classMetaData.getFields().size(), "?"))
                 + ")";
     }
 

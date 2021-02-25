@@ -1,10 +1,11 @@
 package otus.hw09.jdbc.db.helper;
 
 import otus.hw09.jdbc.annotation.Id;
+import otus.hw09.jdbc.exception.DBException;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,8 +33,13 @@ public class MetaData<T> {
         return fields;
     }
 
-    public Class<T> getClazz() {
-        return clazz;
+    public Constructor<T> getConstructor() {
+        try {
+            return clazz.getConstructor();
+        } catch (NoSuchMethodException e) {
+            throw new DBException(e.toString());
+        }
+
     }
 
     public String getName() {

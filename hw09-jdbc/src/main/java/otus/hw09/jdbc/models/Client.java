@@ -1,23 +1,35 @@
 package otus.hw09.jdbc.models;
 
+import com.google.gson.Gson;
 import otus.hw09.jdbc.annotation.Id;
-import otus.hw09.jdbc.db.DBExecutor;
 
-import java.math.BigInteger;
-import java.sql.SQLException;
+import java.util.Random;
 
 public class Client {
     @Id
-    private BigInteger id;
+    private long id;
     private String name;
     private Integer age;
 
+    public Client() {
+        this.id = new Random().nextLong();
+        this.name = "name";
+        this.age = -1;
+    }
+
     public Client(String name, Integer age) {
+        this.id = new Random().nextLong();
         this.name = name;
         this.age = age;
     }
 
-    public BigInteger getId() {
+    public Client(long id, String name, Integer age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+
+    public long getId() {
         return id;
     }
 
@@ -37,18 +49,10 @@ public class Client {
         this.name = name;
     }
 
-    public void save() throws SQLException, ClassNotFoundException {
-        DBExecutor<Client> dbExecutor = new DBExecutor<>(Client.class);
-        dbExecutor.insert(this);
+    @Override
+    public String toString() {
+        var gson = new Gson();
+        return gson.toJson(this);
     }
 
-    public static Client findById(Integer id) throws SQLException, ClassNotFoundException {
-        DBExecutor<Client> dbExecutor = new DBExecutor<>(Client.class);
-        return dbExecutor.select(id);
-    }
-
-    public static void createTable() throws SQLException, ClassNotFoundException {
-        DBExecutor<Client> dbExecutor = new DBExecutor<>(Client.class);
-        dbExecutor.createTable();
-    }
 }
