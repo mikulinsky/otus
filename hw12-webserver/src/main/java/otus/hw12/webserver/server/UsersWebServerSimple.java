@@ -55,7 +55,7 @@ public class UsersWebServerSimple implements UsersWebServer {
 
         HandlerList handlers = new HandlerList();
         handlers.addHandler(resourceHandler);
-        handlers.addHandler(applySecurity(servletContextHandler, "/users", "/api/user/*"));
+        handlers.addHandler(applySecurity(servletContextHandler, "/users", "/api/user/*", "/admin"));
 
 
         server.setHandler(handlers);
@@ -78,7 +78,6 @@ public class UsersWebServerSimple implements UsersWebServer {
         ServletContextHandler servletContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         servletContextHandler.addServlet(new ServletHolder(new UsersServlet(templateProcessor, dbServiceUser)), "/users");
         servletContextHandler.addServlet(new ServletHolder(new AdminServlet(templateProcessor, dbServiceUser)), "/admin");
-        servletContextHandler.addServlet(new ServletHolder(new UsersApiServlet(dbServiceUser, gson)), "/api/user/");
         servletContextHandler.addServlet(new ServletHolder(new UsersApiServlet(dbServiceUser, gson)), "/api/user/*");
         return servletContextHandler;
     }

@@ -11,6 +11,12 @@
                 .then(response => response.json())
                 .then(user => userDataContainer.innerHTML = JSON.stringify(user));
         }
+        function getAllUsers() {
+            const userDataContainer = document.getElementById('userDataContainer');
+            fetch('api/user/')
+                .then(response => response.json())
+                .then(user => userDataContainer.innerHTML = JSON.stringify(user));
+        }
         function sendUser(method) {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
@@ -46,6 +52,7 @@
 <h4>Получить пользователя по id</h4>
 <input type="text" id = "userIdTextBox" value="3" placeholder="Введите id пользователя">
 <button onclick="getUserById()">Получить</button>
+<button onclick="getAllUsers()">Получить всех пользователей</button>
 <pre id = "userDataContainer"></pre>
 
 <h4>Случайный пользователь</h4>
