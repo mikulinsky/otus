@@ -1,0 +1,78 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Пользователи</title>
+    <script>
+        function getUserById() {
+            const userIdTextBox = document.getElementById('userIdTextBox');
+            const userDataContainer = document.getElementById('userDataContainer');
+            const id = userIdTextBox.value;
+            //fetch('api/user?id=' + id)
+            fetch('api/user/' + id)
+                .then(response => response.json())
+                .then(user => userDataContainer.innerHTML = JSON.stringify(user));
+        }
+        function getAllUsers() {
+            const userDataContainer = document.getElementById('userDataContainer');
+            fetch('api/user/')
+                .then(response => response.json())
+                .then(user => userDataContainer.innerHTML = JSON.stringify(user));
+        }
+        function sendUser(method) {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('userRole').value;
+            const body = JSON.stringify({name: username, password: password, role: role});
+            console.log(body);
+            //fetch('api/user?id=' + id)
+            fetch('api/user/', {
+                method: method,
+                headers: {'Content-Type': 'application/json'},
+                body: body
+            }).then(response => response.json())
+                .then(response => createUserContainer.innerHTML = JSON.stringify(response));
+        }
+    </script>
+</head>
+
+<body>
+
+<h4>Создать пользователя</h4>
+<input type="text" id="username" value="name" placeholder="Введите имя пользователя">
+<input type="password" id="password" value="password" placeholder="Введите пароль пользователя">
+<select id="userRole">
+    <option value="USER">Пользователь</option>
+    <option value="ADMIN">Администратор</option>
+</select>
+
+<button onclick="sendUser('POST')">Создать</button>
+<button onclick="sendUser('PUT')">Изменить</button>
+
+<pre id = "createUserContainer"></pre>
+
+<h4>Получить пользователя по id</h4>
+<input type="text" id = "userIdTextBox" value="3" placeholder="Введите id пользователя">
+<button onclick="getUserById()">Получить</button>
+<button onclick="getAllUsers()">Получить всех пользователей</button>
+<pre id = "userDataContainer"></pre>
+
+<h4>Случайный пользователь</h4>
+<table style="width: 400px">
+    <thead>
+    <tr>
+        <td style="width: 50px">Id</td>
+        <td style="width: 150px">Имя</td>
+        <td style="width: 100px">Логин</td>
+        <td style="width: 100px">Пароль</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>${randomUser.id}</td>
+        <td>${randomUser.name}</td>
+        <td>${randomUser.role}</td>
+        <td>${randomUser.password}</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
