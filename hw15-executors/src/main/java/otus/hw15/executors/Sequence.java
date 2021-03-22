@@ -25,7 +25,6 @@ public class Sequence {
                 notifyAll();
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
-                throw new NotInterestingException(ex);
             }
         }
     }
