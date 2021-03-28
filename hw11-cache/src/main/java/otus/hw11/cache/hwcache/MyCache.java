@@ -8,6 +8,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.WeakHashMap;
 import java.util.stream.Collectors;
 
 /**
@@ -21,8 +22,8 @@ public class MyCache<K, V> implements HwCache<K, V> {
     private final Map<K, V> weakMap;
     private final List<WeakReference<HwListener<K, V>>> listeners = new ArrayList<>();
 
-    public MyCache(Map<K, V> map){
-        this.weakMap = map;
+    public MyCache(){
+        this.weakMap = new WeakHashMap<>();
     }
 
     @Override
@@ -76,7 +77,7 @@ public class MyCache<K, V> implements HwCache<K, V> {
             if (listener != null) {
                 try {
                     listener.notify(key, value, action);
-                } catch (Throwable e) {
+                } catch (Exception e) {
                     logger.error("Error notification: {}", e.getMessage());
                 }
             } else {

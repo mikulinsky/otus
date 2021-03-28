@@ -13,9 +13,9 @@ public class DbServiceClientImplWithCache implements DBServiceClient {
     private static final Logger logger = LoggerFactory.getLogger(DbServiceClientImplWithCache.class);
 
     private final ClientDao clientDao;
-    private final HwCache<Long, Client> clientCache;
+    private final HwCache<String, Client> clientCache;
 
-    public DbServiceClientImplWithCache(ClientDao clientDao, HwCache<Long, Client> clientCache) {
+    public DbServiceClientImplWithCache(ClientDao clientDao, HwCache<String, Client> clientCache) {
         this.clientDao = clientDao;
         this.clientCache = clientCache;
     }
@@ -27,7 +27,7 @@ public class DbServiceClientImplWithCache implements DBServiceClient {
             try {
                 long clientId = clientDao.insertOrUpdate(client);
                 sessionManager.commitSession();
-                clientCache.put(clientId, client);
+                clientCache.put(String.valueOf(clientId), client);
                 logger.debug("created client: {}", clientId);
                 return clientId;
             } catch (Exception e) {
@@ -40,7 +40,7 @@ public class DbServiceClientImplWithCache implements DBServiceClient {
 
     @Override
     public Optional<Client> getClient(long id) {
-        Client clientInCache = clientCache.get(id);
+        Client clientInCache = clientCache.get(String.valueOf(id));
 
         if (clientInCache != null) {
             return Optional.of(clientInCache);
@@ -54,6 +54,8 @@ public class DbServiceClientImplWithCache implements DBServiceClient {
             sessionManager.beginSession();
             try {
                 Optional<Client> clientOptional = clientDao.findById(id);
+
+                clientOptional.ifPresent(client -> clientCache.put(String.valueOf(id), client));
 
                 logger.debug("client: {}", clientOptional.orElse(null));
                 return clientOptional;

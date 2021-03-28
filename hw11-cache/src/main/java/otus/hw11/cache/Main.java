@@ -19,7 +19,6 @@ import otus.hw11.cache.hwcache.MyCache;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.WeakHashMap;
 
 public class Main {
 
@@ -32,7 +31,7 @@ public class Main {
     private static void speedTest() {
         ClientDao clientDao = Main.getClientDao();
         DBServiceClient dbServiceClient = new DbServiceClientImpl(clientDao);
-        DBServiceClient dbServiceClientWithCache = new DbServiceClientImplWithCache(clientDao, new MyCache<>(new WeakHashMap<>()));
+        DBServiceClient dbServiceClientWithCache = new DbServiceClientImplWithCache(clientDao, new MyCache<>());
 
         logger.info("Test without cache");
         Main.dbServiceSpeedTest(dbServiceClient);
