@@ -9,4 +9,4 @@
 
 rootProject.name = 'otus'
 
-include('hw01-gradle', 'hw02-generics', 'hw03-annotations', 'hw04-gc', 'hw05-autoLog', 'hw06-atm', 'hw07-todo', 'hw08-json', 'hw09-jdbc', 'hw10-hibernate', 'hw12-webserver', 'hw15-executors')
+include('hw01-gradle', 'hw02-generics', 'hw03-annotations', 'hw04-gc', 'hw05-autoLog', 'hw06-atm', 'hw07-todo', 'hw08-json', 'hw09-jdbc', 'hw10-hibernate', 'hw11-cache', 'hw12-webserver', 'hw15-executors')
